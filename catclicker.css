@@ -40,9 +40,6 @@
     transition-duration: 0.8s;
 }
 
-.cat--hidden {
-    display: none;
-}
 
 .cat__image {
     width: 400px;
@@ -57,4 +54,12 @@
 .cat__clickCounter {
     color: #b93d0d;
     font-size: 30px;
+}
+
+.admin-form {
+
+}
+
+.admin-form label {
+
 }

@@ -27,14 +27,19 @@ function init() {
       },
 
       initShowcase: function() {
-          this.catNameElement = document.querySelector('.cat__name');
-          this.catImageElement = document.querySelector('.cat__image');
-          this.catClickCounterElement = document.querySelector('.cat__clickCounter');
+        this.catNameElement = document.querySelector('.cat__name');
+        this.catImageElement = document.querySelector('.cat__image');
+        this.catClickCounterElement = document.querySelector('.cat__clickCounter');
         this.cat = document.querySelector('.cat');
-          this.progressBarContainer = document.querySelector('.progressBarContainer');
-          this.progressBar = document.querySelector('.progressBar');
+        this.progressBarContainer = document.querySelector('.progressBarContainer');
+        this.progressBar = document.querySelector('.progressBar');
+        this.adminBtn = document.querySelector('.cat__adminBtn');
 
-this.cat.classList.add('cat--hidden');  // по умолчанию скрываем поле вывода котов
+        this.cat.style.display = 'none';  // по умолчанию скрываем поле вывода котов
+
+        this.adminBtn.addEventListener('click', function(){
+          adminFormView.show();
+        });
 
         view.catImageElement.addEventListener('click', function(e){
           controller.increaseCounter();
@@ -48,18 +53,18 @@ this.cat.classList.add('cat--hidden');  // по умолчанию скрыва�
             view.renderProgressBar();
 
             if (controller.getLoadedPercent() === 100) {
-                setTimeout(function(){          //чтобы увидеть 100% загрузки на прогрессбаре
-                  view.hideProgressBar();
-                  view.showShowcase();
-                  view.render();
-                }, 500);
+              setTimeout(function(){          //чтобы увидеть 100% загрузки на прогрессбаре
+                view.hideProgressBar();
+                view.showShowcase();
+                view.render();
+              }, 500);
             }
           });
         });
       },
 
       showShowcase: function() {
-        this.cat.classList.remove('cat--hidden');
+        this.cat.style.display = 'block';
       },
 
       render: function() {
@@ -79,11 +84,43 @@ this.cat.classList.add('cat--hidden');  // по умолчанию скрыва�
       }
     };
 
+    let adminFormView = {
+        init: function() {
+          this.form = document.querySelector('.admin-form');
+          this.catName = document.querySelector('.admin-form__cat-name');
+          this.catURL = document.querySelector('.admin-form__cat-url');
+          this.catClicks = document.querySelector('.admin-form__cat-clicks');
+          this.cancelBtn = document.querySelector('.admin-form-cancel');
+          this.submitBtn = document.querySelector('.admin-form-submit');
+
+          this.cancelBtn.addEventListener('click', function(e){
+
+          });
+          this.submitBtn.addEventListener('click', function(e){
+              let updateObj = { name: adminFormView.catName.value,
+                                url: adminFormView.catURL.value,
+                                clicks: adminFormView.catClicks.value};
+              controller.updateInfo(updateObj);
+              e.preventDefault();
+          });
+
+          this.form.style.display = 'none';
+        },
+
+      render: function() {
+        this.form.style.display = 'block';
+        let currentCat = controller.getCurrentCat();
+        this.catName.
+      }
+
+    };
+
     let controller = {
       init: function() {
         controller.initModel();
         view.initMenu();
         view.initShowcase();
+        adminFormView.init();
       },
       initModel: function() {
         data.forEach(function(catObj){
@@ -109,6 +146,14 @@ this.cat.classList.add('cat--hidden');  // по умолчанию скрыва�
       },
       getLoadedPercent: function() {
         return (model.loadImgCounter * 100 / model.data.length);
+      },
+      updateInfo(obj) {
+          for (let prop in obj) {
+              if (model.data[model.currentCat].hasOwnProperty(prop)) {
+                model.data[model.currentCat][prop] = obj[prop];
+              }
+          }
+          view.render();
       }
     };
     controller.init();

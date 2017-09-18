@@ -21,7 +21,16 @@
             <img class="cat__image" src="" alt="cute cat">
             <figcaption class="cat__clickCounter"></figcaption>
         </figure>
+        <button class="cat__adminBtn">Edit</button>
     </article>
+    <form class="admin-form">
+        <label for="cat-name">Cat name:</label><input class="admin-form__cat-name" type="text" name="name" id="cat-name">
+        <label for="cat-url">Cat URL:</label><input class="admin-form__cat-url" type="text" name="url" id="cat-url">
+        <label for="cat-clicks">Cat clicks:</label><input class="admin-form__cat-clicks" type="number" name="clicks" id="cat-clicks">
+        <button class="admin-form-cancel">Cancel</button>
+        <button class="admin-form-submit">Submit</button>
+    </form>
+
 </section>
 
 </body>
