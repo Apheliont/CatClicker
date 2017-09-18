@@ -21,7 +21,7 @@
     font-size: 18px;
 }
 
-.progressContainer {
+.progressBarContainer {
     margin: 50px auto;
     position: relative;
     width: 400px;
@@ -38,4 +38,23 @@
     top: 0;
     left: 0;
     transition-duration: 0.8s;
+}
+
+.cat--hidden {
+    display: none;
+}
+
+.cat__image {
+    width: 400px;
+}
+
+.cat__name {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Comic Sans MS", sans-serif;
+}
+
+.cat__clickCounter {
+    color: #b93d0d;
+    font-size: 30px;
 }

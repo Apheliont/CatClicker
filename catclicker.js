@@ -12,7 +12,6 @@ function init() {
 
     let view = {
       initMenu: function() {
-
         let menu = document.createElement('ul');
         menu.classList.add('menuList');
         controller.getAllCats().forEach(function(catObj, num){
@@ -26,51 +25,57 @@ function init() {
         });
         menuContainer.appendChild(menu);
       },
+
       initShowcase: function() {
+          this.catNameElement = document.querySelector('.cat__name');
+          this.catImageElement = document.querySelector('.cat__image');
+          this.catClickCounterElement = document.querySelector('.cat__clickCounter');
+        this.cat = document.querySelector('.cat');
+          this.progressBarContainer = document.querySelector('.progressBarContainer');
+          this.progressBar = document.querySelector('.progressBar');
+
+this.cat.classList.add('cat--hidden');  // по умолчанию скрываем поле вывода котов
+
+        view.catImageElement.addEventListener('click', function(e){
+          controller.increaseCounter();
+        });
         controller.getAllCats().forEach(function(catObj, num){
           let image = new Image();
           image.src = catObj.url;
-          image.style.width = 400 + 'px';
-          image.addEventListener('click', function(){
-            controller.increaseCounter();
-          });
-          image.addEventListener('load', function(){
-            controller.addImageObj(image, num);
-            if (controller.getLoadedPercent() === 100) {
-              view.render();
-            } else {
-              view.renderProgressBar();
-            }
 
+          image.addEventListener('load', function(){
+            controller.increaseLoadedImageCounter();
+            view.renderProgressBar();
+
+            if (controller.getLoadedPercent() === 100) {
+                setTimeout(function(){          //чтобы увидеть 100% загрузки на прогрессбаре
+                  view.hideProgressBar();
+                  view.showShowcase();
+                  view.render();
+                }, 500);
+            }
           });
         });
       },
-      render: function() {
-        imageContainer.innerHTML = '';
-        let currentCat = controller.getCurrentCat();
-        let figure = document.createElement('figure');
-        let catNameElement = document.createElement('p');
-        let figcaption = document.createElement('figcaption');
 
-        catNameElement.textContent = currentCat.name;
-        figcaption.textContent = currentCat.clicks;
-        figure.appendChild(catNameElement);
-        figure.appendChild(currentCat.image);
-        figure.appendChild(figcaption);
-        imageContainer.appendChild(figure);
+      showShowcase: function() {
+        this.cat.classList.remove('cat--hidden');
       },
-      renderProgressBar() {
-        let progressBar = document.querySelector('.progressBar');
-        if (!progressBar) {
-          let progressContainer = document.createElement('div');
-          progressBar = document.createElement('div');
-          progressContainer.classList.add('progressContainer');
-          progressBar.classList.add('progressBar');
-          progressContainer.appendChild(progressBar);
-          imageContainer.appendChild(progressContainer);
-        }
-        console.log(progressBar);
-        progressBar.style.width = controller.getLoadedPercent() + '%';
+
+      render: function() {
+        let currentCat = controller.getCurrentCat();
+
+        this.catNameElement.textContent = currentCat.name;
+        this.catImageElement.src = currentCat.url;
+        this.catClickCounterElement.textContent = currentCat.clicks;
+      },
+
+      renderProgressBar: function() {
+        this.progressBar.style.width = controller.getLoadedPercent() + '%';
+      },
+
+      hideProgressBar: function() {
+        this.progressBarContainer.style.display = 'none';
       }
     };
 
@@ -93,8 +98,7 @@ function init() {
         model.data[model.currentCat].clicks++;
         view.render();
       },
-      addImageObj: function(image, num) {
-        model.data[num].image = image;
+      increaseLoadedImageCounter: function() {
         model.loadImgCounter++;
       },
       getCurrentCat: function() {
