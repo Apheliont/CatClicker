@@ -1,6 +1,8 @@
 function init() {
 
   function catClicker(data) {
+    let imageContainer = document.querySelector('.imageContainer');
+    let menuContainer = document.querySelector('.menuContainer');
 
     let model = {
       data: [],
@@ -10,7 +12,7 @@ function init() {
 
     let view = {
       initMenu: function() {
-        let menuContainer = document.querySelector('.menuContainer');
+
         let menu = document.createElement('ul');
         menu.classList.add('menuList');
         controller.getAllCats().forEach(function(catObj, num){
@@ -34,18 +36,16 @@ function init() {
           });
           image.addEventListener('load', function(){
             controller.addImageObj(image, num);
+            if (controller.getLoadedPercent() === 100) {
+              view.render();
+            } else {
+              view.renderProgressBar();
+            }
+
           });
         });
-        view.render();
       },
       render: function() {
-        let imageContainer = document.querySelector('.imageContainer');
-        if (!controller.isAllImgLoaded()) {
-          imageContainer.innerHTML = 'Loading...';
-          setTimeout(function(){view.render()}, 2000);
-          return false;
-        }
-
         imageContainer.innerHTML = '';
         let currentCat = controller.getCurrentCat();
         let figure = document.createElement('figure');
@@ -58,6 +58,19 @@ function init() {
         figure.appendChild(currentCat.image);
         figure.appendChild(figcaption);
         imageContainer.appendChild(figure);
+      },
+      renderProgressBar() {
+        let progressBar = document.querySelector('.progressBar');
+        if (!progressBar) {
+          let progressContainer = document.createElement('div');
+          progressBar = document.createElement('div');
+          progressContainer.classList.add('progressContainer');
+          progressBar.classList.add('progressBar');
+          progressContainer.appendChild(progressBar);
+          imageContainer.appendChild(progressContainer);
+        }
+        console.log(progressBar);
+        progressBar.style.width = controller.getLoadedPercent() + '%';
       }
     };
 
@@ -90,8 +103,8 @@ function init() {
       setCurrentCat: function(id) {
         model.currentCat = id;
       },
-      isAllImgLoaded: function() {
-        return model.data.length === model.loadImgCounter;
+      getLoadedPercent: function() {
+        return (model.loadImgCounter * 100 / model.data.length);
       }
     };
     controller.init();
@@ -113,7 +126,9 @@ function init() {
       name: 'Туся'
     },
     {url: 'http://media1.santabanta.com/full1/Animals/Cats/cats-85a.jpg',
-      name: 'Mr. pur-fur'}
+      name: 'Mr. pur-fur'},
+    {url: 'https://www.wmj.ru/imgs/2016/12/05/09/929194/d1bbd77c2612ef45eee03defa5c373710d7c56e8.jpg',
+      name: 'Бася'}
   ];
 
   catClicker(listOfCats);

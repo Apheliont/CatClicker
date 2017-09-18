@@ -20,3 +20,22 @@
     color: black;
     font-size: 18px;
 }
+
+.progressContainer {
+    margin: 50px auto;
+    position: relative;
+    width: 400px;
+    height: 40px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+
+}
+
+.progressBar {
+    position: absolute;
+    height: 100%;
+    background-color: black;
+    top: 0;
+    left: 0;
+    transition-duration: 0.8s;
+}
