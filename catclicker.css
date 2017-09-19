@@ -1,24 +1,50 @@
-.imageContainer {
+html {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(95deg, rgba(78, 255, 118, 0.79), rgba(96, 160, 255, 0.6)) no-repeat;
+}
+
+.wrapper {
     width: 960px;
+    margin: auto;
+}
+
+.imageContainer {
+    width: 600px;
     margin: 50px auto;
     text-align: center;
 }
 .menuContainer {
-    width: 200px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
     float: right;
+    width: 200px;
+    margin-top: 50px;
     border: 1px solid black;
     border-radius: 5px;
 }
 
 .menuList {
+    margin: 10px 20px;
     list-style: none;
     padding-left: 0;
 }
 
 .menuList li {
+    cursor: pointer;
     padding: 10px;
     color: black;
     font-size: 18px;
+    border-radius: 30%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.menuList li:hover {
+    background-color: rgba(186, 255, 195, 0.92);
+
 }
 
 .progressBarContainer {
@@ -40,26 +66,89 @@
     transition-duration: 0.8s;
 }
 
+.cat {
 
-.cat__image {
-    width: 400px;
 }
 
 .cat__name {
     font-size: 24px;
     font-weight: bold;
+    color: #242424;
     font-family: "Comic Sans MS", sans-serif;
 }
 
+.cat__figure {
+    position: relative;
+}
+
+.cat__image {
+    width: 400px;
+    cursor: pointer;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+}
+
+.cat__adminBtn,
+.admin-form-cancel,
+.admin-form-submit {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: white;
+}
+
+.admin-form-submit {
+    background-color: #16d100;
+    color: white;
+}
+
+.admin-form-cancel {
+    margin-right: 15px;
+}
+
 .cat__clickCounter {
-    color: #b93d0d;
+    position: absolute;
+    bottom: 5px;
+    left: 65px;
+    color: #fff;
     font-size: 30px;
 }
 
 .admin-form {
-
+    margin-top: 20px;
 }
 
 .admin-form label {
+    display: inline-block;
+    width: 140px;
+    margin-top: 5px;
+}
 
+.admin-form__fieldset {
+    margin-left: 90px;
+    margin-right: 100px;
+    border: none;
+    padding: 10px 0;
+    text-align: left;
+
+}
+
+.admin-form__cat-name,
+.admin-form__cat-url,
+.admin-form__cat-clicks {
+    width: 232px;
+    padding: 10px 10px 10px 20px;
+    border: none;
+    outline: none;
+    float: right;
+}
+
+.admin-form__buttons {
+    text-align: inherit;
+    margin: 0;
+}
+
+.admin-form__cat-clicks::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }

@@ -7,11 +7,14 @@ function init() {
     let model = {
       data: [],
       currentCat: 0,
-      loadImgCounter: 0
+      loadImgCounter: 0,
+      adminFormOpenState: false
     };
 
     let view = {
       initMenu: function() {
+        this.menuContainer = document.querySelector('.menuContainer');
+        this.menuContainer.innerHTML = '';
         let menu = document.createElement('ul');
         menu.classList.add('menuList');
         controller.getAllCats().forEach(function(catObj, num){
@@ -19,6 +22,9 @@ function init() {
           catLi.textContent = catObj.name;
           catLi.addEventListener('click', function(e){
             controller.setCurrentCat(num);
+            if (controller.adminFormOpenState()) {
+              adminFormView.render();
+            }
             view.render();
           });
           menu.appendChild(catLi);
@@ -38,7 +44,9 @@ function init() {
         this.cat.style.display = 'none';  // по умолчанию скрываем поле вывода котов
 
         this.adminBtn.addEventListener('click', function(){
-          adminFormView.show();
+          if (!controller.adminFormOpenState()) {
+            adminFormView.render();
+          }
         });
 
         view.catImageElement.addEventListener('click', function(e){
@@ -94,13 +102,15 @@ function init() {
           this.submitBtn = document.querySelector('.admin-form-submit');
 
           this.cancelBtn.addEventListener('click', function(e){
-
+            adminFormView.close();
+            e.preventDefault();
           });
           this.submitBtn.addEventListener('click', function(e){
               let updateObj = { name: adminFormView.catName.value,
                                 url: adminFormView.catURL.value,
                                 clicks: adminFormView.catClicks.value};
               controller.updateInfo(updateObj);
+            adminFormView.close();
               e.preventDefault();
           });
 
@@ -110,7 +120,17 @@ function init() {
       render: function() {
         this.form.style.display = 'block';
         let currentCat = controller.getCurrentCat();
-        this.catName.
+        this.catName.value = currentCat.name;
+        this.catURL.value = currentCat.url;
+        this.catClicks.value = currentCat.clicks;
+        controller.adminFormOpenState(true);
+      },
+      close: function() {
+        this.catName.value = '';
+        this.catURL.value = '';
+        this.catClicks.value = '';
+        this.form.style.display = 'none';
+        controller.adminFormOpenState(false);
       }
 
     };
@@ -147,13 +167,21 @@ function init() {
       getLoadedPercent: function() {
         return (model.loadImgCounter * 100 / model.data.length);
       },
-      updateInfo(obj) {
+      updateInfo: function(obj) {
           for (let prop in obj) {
               if (model.data[model.currentCat].hasOwnProperty(prop)) {
                 model.data[model.currentCat][prop] = obj[prop];
               }
           }
+        view.initMenu();
           view.render();
+      },
+      adminFormOpenState: function() {
+        if (arguments.length > 0 && typeof arguments[0] === 'boolean') {
+          model.adminFormOpenState = arguments[0];
+        } else {
+          return model.adminFormOpenState;
+        }
       }
     };
     controller.init();
@@ -163,10 +191,10 @@ function init() {
 
   let listOfCats = [
     {url: 'https://www.rd.com/wp-content/uploads/sites/2/2016/02/06-train-cat-shake-hands.jpg',
-      name: 'Meowie'
+      name: 'Кися'
     },
     {url: 'http://www.catster.com/wp-content/uploads/2017/06/small-kitten-meowing.jpg',
-      name: 'Betsy'
+      name: 'Блохастик'
     },
     {url: 'http://www.nationalgeographic.com/content/dam/animals/thumbs/rights-exempt/mammals/d/domestic-cat_thumb.ngsversion.1472140774957.adapt.1900.1.jpg',
       name: 'Мурка'
@@ -175,9 +203,11 @@ function init() {
       name: 'Туся'
     },
     {url: 'http://media1.santabanta.com/full1/Animals/Cats/cats-85a.jpg',
-      name: 'Mr. pur-fur'},
+      name: 'Мр. мур-мур'
+    },
     {url: 'https://www.wmj.ru/imgs/2016/12/05/09/929194/d1bbd77c2612ef45eee03defa5c373710d7c56e8.jpg',
-      name: 'Бася'}
+      name: 'Барсик'
+    }
   ];
 
   catClicker(listOfCats);

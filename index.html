@@ -9,29 +9,42 @@
 </head>
 
 <body>
+<div class="wrapper">
+    <section class="menuContainer"></section>
+    <section class="imageContainer">
+        <div class="progressBarContainer">
+            <div class="progressBar"></div>
+        </div>
+        <article class="cat">
+            <header class="cat__name"></header>
+            <figure class="cat__figure">
+                <img class="cat__image" src="" alt="cute cat">
+                <figcaption class="cat__clickCounter"></figcaption>
+            </figure>
+            <button class="cat__adminBtn">Редактировать</button>
+        </article>
+        <form class="admin-form">
+            <fieldset class="admin-form__fieldset">
+                <label for="cat-name">Кличка:</label>
+                <input class="admin-form__cat-name" type="text" name="name" id="cat-name">
+            </fieldset>
+            <fieldset class="admin-form__fieldset">
+                <label for="cat-url">URL:</label>
+                <input class="admin-form__cat-url" type="text" name="url" id="cat-url">
+            </fieldset>
+            <fieldset class="admin-form__fieldset">
+                <label for="cat-clicks">Клики:</label><input class="admin-form__cat-clicks" type="number" name="clicks" id="cat-clicks">
+            </fieldset>
+            <fieldset class="admin-form__fieldset admin-form__buttons">
+                <button class="admin-form-cancel">Отмена</button>
+                <button class="admin-form-submit">Сохранить</button>
+            </fieldset>
+        </form>
+    </section>
+</div>
 
-<section class="menuContainer"></section>
-<section class="imageContainer">
-    <div class="progressBarContainer">
-        <div class="progressBar"></div>
-    </div>
-    <article class="cat">
-        <header class="cat__name"></header>
-        <figure>
-            <img class="cat__image" src="" alt="cute cat">
-            <figcaption class="cat__clickCounter"></figcaption>
-        </figure>
-        <button class="cat__adminBtn">Edit</button>
-    </article>
-    <form class="admin-form">
-        <label for="cat-name">Cat name:</label><input class="admin-form__cat-name" type="text" name="name" id="cat-name">
-        <label for="cat-url">Cat URL:</label><input class="admin-form__cat-url" type="text" name="url" id="cat-url">
-        <label for="cat-clicks">Cat clicks:</label><input class="admin-form__cat-clicks" type="number" name="clicks" id="cat-clicks">
-        <button class="admin-form-cancel">Cancel</button>
-        <button class="admin-form-submit">Submit</button>
-    </form>
 
-</section>
+
 
 </body>
 </html>
