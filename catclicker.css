@@ -12,15 +12,16 @@ body {
 }
 
 .imageContainer {
+    float: right;
     width: 600px;
-    margin: 50px auto;
+    margin-top: 50px;
     text-align: center;
 }
 .menuContainer {
     box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
     float: right;
     width: 200px;
-    margin-top: 50px;
+    margin-top: 100px;
     border: 1px solid black;
     border-radius: 5px;
 }
@@ -48,7 +49,7 @@ body {
 }
 
 .progressBarContainer {
-    margin: 50px auto;
+    margin: 150px auto;
     position: relative;
     width: 400px;
     height: 40px;
@@ -60,7 +61,7 @@ body {
 .progressBar {
     position: absolute;
     height: 100%;
-    background-color: black;
+    background: linear-gradient(90deg, #2f2f2f, #ffffff);
     top: 0;
     left: 0;
     transition-duration: 0.8s;
@@ -75,6 +76,9 @@ body {
     font-weight: bold;
     color: #242424;
     font-family: "Comic Sans MS", sans-serif;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .cat__figure {
