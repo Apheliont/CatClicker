@@ -1,0 +1,22 @@
+{
+  "name": "catclicker",
+  "version": "1.0.0",
+  "description": "click a cat!",
+  "main": "src/catclicker.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apheliont/CatClicker.git"
+  },
+  "author": "Aphel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Apheliont/CatClicker/issues"
+  },
+  "homepage": "https://github.com/Apheliont/CatClicker#readme",
+  "devDependencies": {
+    "webpack": "^3.7.1"
+  }
+}
