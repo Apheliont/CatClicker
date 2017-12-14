@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+
 const nodeEnv = process.env.NODE_ENV || 'production';
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
   entry: './src/catclicker.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     loaders: [
@@ -16,18 +17,18 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['env']
-        }
-      }
-    ]
+          presets: ['env'],
+        },
+      },
+    ],
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       output: { comments: false },
-      sourceMap: true
+      sourceMap: true,
     }),
     new webpack.DefinePlugin({
-      'proccess.env': { NODE_ENV: JSON.stringify(nodeEnv)}
-    })
-  ]
+      'proccess.env': { NODE_ENV: JSON.stringify(nodeEnv) },
+    }),
+  ],
 };

@@ -57,7 +57,12 @@ const catController = {
           progressBarView.renderProgressBar();
           resolve(cat.url);
         };
-        img.onerror = () => reject(cat.url);
+        img.onerror = () => {
+            img.src = '';
+            catController.increaseLoadedImageCounter();
+            progressBarView.renderProgressBar();
+            resolve('');
+        };
       });
       imageArr.push(catImagePromise);
     }

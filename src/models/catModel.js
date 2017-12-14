@@ -1,4 +1,4 @@
-const catModel =  {
+const catModel = {
   // Внутри data лежат объекты котов которые содержат url: 'httpX://....' и name: 'имя котика'
   data: [
     {
@@ -14,7 +14,7 @@ const catModel =  {
       name: 'Мурка',
     },
     {
-      url: 'https://www.petfinder.com/wp-content/uploads/2012/11/152177319-declawing-cats-632x475-e1354303246526-632x353.jpg',
+      url: 'http://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg',
       name: 'Туся',
     },
     {
